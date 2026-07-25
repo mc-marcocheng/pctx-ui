@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Generated bundled-engine resources and release output
+/src-tauri/resources/bin/
+/src-tauri/resources/licenses/
+/release-dist/
+/.release-cache/

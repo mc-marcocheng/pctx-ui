@@ -52,6 +52,9 @@ src-tauri/src/commands/ Tauri commands exposed to the frontend
 src-tauri/src/engine/   Engine discovery, args, protocol, and process runner
 src-tauri/src/models/   Shared Rust data models
 src-tauri/tests/        Real-engine contract tests
+scripts/                Release/build helper scripts (bundled-engine prep, version checks, artifact collection)
+bundled-pctx.json       Pinned version/tag/asset manifest for the bundled pctx engine
+.github/workflows/      CI and release automation
 ```
 
 ## Development Guidelines
@@ -90,6 +93,8 @@ If engine behavior changes, update:
 - `src-tauri/src/models/`
 - `src-tauri/src/engine/args.rs`
 - contract tests in `src-tauri/tests/contract.rs`
+
+If you're bumping the *bundled* engine version, only `bundled-pctx.json` needs to change (tag, version, asset names) — do not duplicate the version elsewhere in `scripts/` or `.github/workflows/release.yml`.
 
 ## Running Checks
 

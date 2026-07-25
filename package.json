@@ -8,7 +8,10 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "prepare:pctx-bundle": "node scripts/prepare-bundled-pctx.mjs",
+    "tauri:build:unbundled": "tauri build",
+    "tauri:build:bundled": "npm run prepare:pctx-bundle && tauri build --config src-tauri/tauri.bundled.conf.json"
   },
   "dependencies": {
     "@codemirror/lang-markdown": "^6.5.1",

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "repository": "mc-marcocheng/pctx",
+  "tag": "v1.1.0",
+  "version": "1.1.0",
+  "assets": {
+    "linux-x64": "pctx-linux-x86_64.tar.gz",
+    "linux-arm64": "pctx-linux-aarch64.tar.gz",
+    "darwin-x64": "pctx-macos-x86_64.tar.gz",
+    "darwin-arm64": "pctx-macos-aarch64.tar.gz",
+    "win32-x64": "pctx-windows-x86_64.zip"
+  }
+}

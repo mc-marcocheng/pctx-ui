@@ -1,5 +1,9 @@
 # pctx-ui
 
+<p align="center">
+  <img src="assets/pctx-ui.png" alt="pctx-ui cover image">
+</p>
+
 A desktop interface for [`pctx`](https://github.com/mc-marcocheng/pctx), built with Tauri, React, and TypeScript.
 
 `pctx-ui` helps you select files from one or more workspaces, tune filtering/truncation/output settings, preview generated context, and copy or save LLM-ready output.
@@ -16,6 +20,31 @@ A desktop interface for [`pctx`](https://github.com/mc-marcocheng/pctx), built w
 - Choose an external `pctx` engine or use a bundled one when available
 - Diagnostics panel for engine and operation troubleshooting
 - Light, dark, system, built-in, and custom themes
+
+## Downloads
+
+GitHub releases provide two editions per platform:
+
+- **Bundled:** includes the specific `pctx` version named in the download (currently `pctx-v1.1.0`) — no separate engine installation is required.
+- **Unbundled:** requires a compatible `pctx` engine, `>= 1.1.0, < 2.0.0`, installed separately or selected via the in-app engine picker.
+
+Install the engine for the unbundled edition with:
+
+```bash
+cargo install pctx
+```
+
+You can also configure an engine through `PCTX_BIN` or the in-app engine picker.
+
+Bundled and unbundled installers are alternative editions of the same application and are not intended to be installed side by side.
+
+Initial package formats:
+
+- Windows: MSI and NSIS executable (`.exe`)
+- macOS: DMG (x86_64 and ARM64)
+- Linux: AppImage and DEB (x86_64)
+
+Builds are currently unsigned. Windows may show a SmartScreen warning and macOS may show a Gatekeeper warning until code signing/notarization is added.
 
 ## Requirements
 
@@ -48,11 +77,19 @@ PCTX_BIN=/path/to/pctx npm run tauri dev
 
 ## Build
 
+Unbundled edition (no engine included):
+
 ```bash
-npm run tauri build
+npm run tauri:build:unbundled
 ```
 
-To bundle an engine binary, place it under `src-tauri/resources/bin/` and build with the bundled Tauri config as appropriate for your release process.
+Bundled edition (downloads and packages the pinned `pctx` release from `bundled-pctx.json`):
+
+```bash
+npm run tauri:build:bundled
+```
+
+Both accept Tauri arguments, e.g. `npm run tauri:build:unbundled -- --bundles msi,nsis`.
 
 ## Testing
 
