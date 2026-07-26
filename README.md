@@ -16,7 +16,7 @@ A desktop interface for [`pctx`](https://github.com/mc-marcocheng/pctx), built w
 - Preview generated Markdown/XML/plain context
 - Render Markdown safely for easier review
 - Copy to clipboard or save generated context to disk
-- Save, import, export, and restore workspaces
+- Create, save, import, export, and restore workspaces
 - Choose an external `pctx` engine or use a bundled one when available
 - Diagnostics panel for engine and operation troubleshooting
 - Light, dark, system, built-in, and custom themes

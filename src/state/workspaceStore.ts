@@ -43,7 +43,13 @@ export const useWorkspaceStore = create<WorkspaceState>((set, get) => ({
   missingSelectedPaths: [],
   scanRevision: 0,
 
-  setWorkspace: (workspace) => set({ workspace, discoveredFiles: {}, missingSelectedPaths: [] }),
+  setWorkspace: (workspace) =>
+    set((state) => ({
+      workspace,
+      discoveredFiles: {},
+      missingSelectedPaths: [],
+      scanRevision: state.scanRevision + 1,
+    })),
 
   addSources: (sources) =>
     set((state) => ({

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Download, FolderOpen, Save, Upload } from "lucide-react";
+import { Download, FilePlus, FolderOpen, Save, Upload } from "lucide-react";
 import {
   exportWorkspaceFile,
   importWorkspaceFile,
@@ -12,13 +12,19 @@ import { chooseWorkspaceExportPath, chooseWorkspaceFile } from "../../api/dialog
 import { usePreviewStore } from "../../state/previewStore";
 import { useWorkspaceStore } from "../../state/workspaceStore";
 import type { RecentWorkspaceEntry } from "../../api/types";
-import { parseWorkspaceFile, workspaceFromFile, workspaceToFile } from "../../utils/workspaceSchema";
+import {
+  createEmptyWorkspace,
+  parseWorkspaceFile,
+  workspaceFromFile,
+  workspaceToFile,
+} from "../../utils/workspaceSchema";
 import { scanWorkspace } from "../../hooks/scanActions";
 
 export function WorkspacePersistenceMenu() {
   const workspace = useWorkspaceStore((state) => state.workspace);
   const setWorkspace = useWorkspaceStore((state) => state.setWorkspace);
   const markStale = usePreviewStore((state) => state.markStale);
+  const clearPreview = usePreviewStore((state) => state.clear);
   const scanWorkspaceAction = scanWorkspace;
 
   const [open, setOpen] = useState(false);
@@ -70,6 +76,20 @@ export function WorkspacePersistenceMenu() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [open]);
+
+  function handleNew() {
+    const confirmed = window.confirm(
+      "Create a new workspace? The current workspace will be replaced. " +
+        "Save it first if you want to keep it.",
+    );
+
+    if (!confirmed) return;
+
+    setWorkspace(createEmptyWorkspace(crypto.randomUUID()));
+    clearPreview();
+    setOpen(false);
+    showMessage("New workspace created.");
+  }
 
   async function handleSave() {
     setBusy(true);
@@ -162,6 +182,10 @@ export function WorkspacePersistenceMenu() {
           aria-label="Workspace actions"
         >
           <div className="workspace-persistence-menu__actions">
+            <button onClick={handleNew} disabled={busy} role="menuitem">
+              <FilePlus size={16} /> New
+            </button>
+
             <button onClick={() => void handleSave()} disabled={busy} role="menuitem">
               <Save size={16} /> Save
             </button>
