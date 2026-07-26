@@ -69,15 +69,16 @@ jobs:
             arch: x86_64
             bundles: msi,nsis
 
-          # macOS x86_64
+          # macOS x86_64 (cross-compiled from the arm64 runner; GitHub has
+          # retired Intel-native macOS hosted runners)
           - variant: unbundled
-            os: macos-13
+            os: macos-14
             target: x86_64-apple-darwin
             platform: macos
             arch: x86_64
             bundles: dmg
           - variant: bundled
-            os: macos-13
+            os: macos-14
             target: x86_64-apple-darwin
             platform: macos
             arch: x86_64
@@ -105,7 +106,7 @@ jobs:
             arch: x86_64
             bundles: deb,appimage
           - variant: bundled
-            os: ubuntu-22.04
+            os: ubuntu-24.04
             target: x86_64-unknown-linux-gnu
             platform: linux
             arch: x86_64
@@ -150,7 +151,10 @@ jobs:
 
       - name: Prepare bundled pctx
         if: matrix.variant == 'bundled'
-        run: npm run prepare:pctx-bundle
+        run: >
+          npm run prepare:pctx-bundle --
+          --platform ${{ matrix.platform == 'macos' && 'darwin' || matrix.platform == 'windows' && 'win32' || 'linux' }}
+          --arch ${{ matrix.arch == 'x86_64' && 'x64' || 'arm64' }}
 
       - name: Build unbundled installers
         if: matrix.variant == 'unbundled'
